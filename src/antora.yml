@@ -1,7 +1,7 @@
 name: model-types
 title: Model Types
 version: v0.1
-prerelease: draft
+prerelease: -draft
 start_page: model-types.adoc
 nav:
 - modules/ROOT/nav.adoc
