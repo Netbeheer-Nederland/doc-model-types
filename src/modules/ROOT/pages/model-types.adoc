@@ -114,3 +114,11 @@ class "TextDiagramObject" [[{A diagram object for placing free-text or text deri
 "DiagramObject" ^-- "TextDiagramObject"
 @enduml
 ....
+
+'''
+
+.Some Excalidraw drawing
+[excalidraw]
+....
+include::partial$diagrams/data.excalidraw.md
+....
