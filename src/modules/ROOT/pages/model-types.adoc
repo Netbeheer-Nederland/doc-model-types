@@ -17,7 +17,7 @@ def square(x):
 
 '''
 
-[plantuml,schema,svg]
+[plantuml]
 ....
 @startuml
 skinparam nodesep 10
