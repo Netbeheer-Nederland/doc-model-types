@@ -16,3 +16,97 @@ def square(x):
 <1> Calculates and returns the square of `x`.
 
 '''
+
+[plantuml,schema,png]
+....
+@startuml
+skinparam nodesep 10
+hide circle
+hide empty members
+class "IdentifiedObject" [[{This is a root class to provide common identification for all classes needing identification and naming attributes.}]] {
+    {field} mRID : string
+    {field} name : string
+    {field} description : string
+}
+class "DiagramObject" [[{An object that defines one or more points in a given space. This object can be associated with anything that specializes IdentifiedObject. For single line diagrams such objects typically include such items as analog values, breakers, disconnectors, power transformers, and transmission lines.}]] {
+    {field} drawingOrder : integer
+    {field} isPolygon : boolean
+    {field} offsetX : float
+    {field} offsetY : float
+    {field} mRID(i) : string
+    {field} name(i) : string
+    {field} description(i) : string
+}
+class "VisibilityLayer" [[{Layers are typically used for grouping diagram objects according to themes and scales. Themes are used to display or hide certain information (e.g., lakes, borders), while scales are used for hiding or displaying information depending on the current zoom level (hide text when it is too small to be read, or when it exceeds the screen size). This is also called de-cluttering.}]] {
+    {field} drawingOrder : integer
+    {field} mRID(i) : string
+    {field} name(i) : string
+    {field} description(i) : string
+}
+class "DiagramStyle" [[{The diagram style refers to a style used by the originating system for a diagram.  A diagram style describes information such as schematic, geographic, etc.}]] {
+    {field} mRID(i) : string
+    {field} name(i) : string
+    {field} description(i) : string
+}
+class "DiagramObjectStyle" [[{A reference to a style used by the originating system for a diagram object.  A diagram object style describes information such as line thickness, shape such as circle or rectangle etc, and colour.}]] {
+    {field} mRID(i) : string
+    {field} name(i) : string
+    {field} description(i) : string
+}
+class "Diagram" [[{The diagram being exchanged. The coordinate system is a standard Cartesian coordinate system and the orientation attribute defines the orientation. The initial view related attributes can be used to specify an initial view with the x,y coordinates of the diagonal points.}]] {
+    {field} orientation : OrientationKind
+    {field} x1InitialView : float
+    {field} x2InitialView : float
+    {field} y1InitialView : float
+    {field} y2InitialView : float
+    {field} mRID(i) : string
+    {field} name(i) : string
+    {field} description(i) : string
+}
+"IdentifiedObject" *--> "0..*" "DiagramObject" : "DiagramObjects"
+"DiagramObject" *--> "0..1" "IdentifiedObject" : "IdentifiedObject"
+"IdentifiedObject" ^-- "VisibilityLayer"
+"IdentifiedObject" ^-- "DiagramStyle"
+"IdentifiedObject" ^-- "DiagramObjectStyle"
+"IdentifiedObject" ^-- "DiagramObject"
+"IdentifiedObject" ^-- "Diagram"
+"VisibilityLayer" *--> "1..*" "DiagramObject" : "VisibleObjects"
+"DiagramObject" *--> "0..*" "VisibilityLayer" : "VisibilityLayers"
+"DiagramStyle" *--> "0..*" "Diagram" : "Diagram"
+"Diagram" *--> "0..1" "DiagramStyle" : "DiagramStyle"
+"DiagramObjectStyle" *--> "0..*" "DiagramObject" : "StyledObjects"
+"DiagramObject" *--> "0..1" "DiagramObjectStyle" : "DiagramObjectStyle"
+class "DiagramObjectPoint" [[{A point in a given space defined by 3 coordinates and associated to a diagram object.  The coordinates may be positive or negative as the origin does not have to be in the corner of a diagram.}]] {
+    {field} sequenceNumber : integer
+    {field} xPosition : float
+    {field} yPosition : float
+    {field} zPosition : float
+}
+class "DiagramObjectGluePoint" [[{This is used for grouping diagram object points from different diagram objects that are considered to be glued together in a diagram even if they are not at the exact same coordinates.}]] {
+
+}
+"DiagramObjectPoint" *--> "0..1" "DiagramObjectGluePoint" : "DiagramObjectGluePoint"
+"DiagramObjectPoint" *--> "1" "DiagramObject" : "DiagramObject"
+"DiagramObjectGluePoint" *--> "1..*" "DiagramObjectPoint" : "DiagramObjectPoints"
+"DiagramObject" *--> "0..*" "DiagramObjectPoint" : "DiagramObjectPoints"
+class "AngleDegrees" [[{Measurement of angle in degrees.}]] {
+    {field} value : float
+    {field} unit : UnitSymbol
+    {field} multiplier : UnitMultiplier
+}
+class "TextDiagramObject" [[{A diagram object for placing free-text or text derived from an associated domain object.}]] {
+    {field} text : string
+    {field} drawingOrder(i) : integer
+    {field} isPolygon(i) : boolean
+    {field} offsetX(i) : float
+    {field} offsetY(i) : float
+    {field} mRID(i) : string
+    {field} name(i) : string
+    {field} description(i) : string
+}
+"DiagramObject" *--> "0..1" "AngleDegrees" : "rotation"
+"DiagramObject" *--> "1" "Diagram" : "Diagram"
+"Diagram" *--> "0..*" "DiagramObject" : "DiagramElements"
+"DiagramObject" ^-- "TextDiagramObject"
+@enduml
+....
