@@ -5,3 +5,14 @@
 == Logical models
 
 We use http://linkml.io/[LinkML] for this. Check out the xref:v1.0.0@linkml-modeling-guide::index.adoc[LinkML Modeling Guide] we've written.
+
+---
+
+[source,python]
+....
+def square(x):
+    return x**2 <1>
+....
+<1> Calculates and returns the square of `x`.
+
+'''
