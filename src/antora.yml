@@ -1,0 +1,6 @@
+name: model-types
+title: Model Types
+version: v0.1
+prerelease: draft
+nav:
+- modules/ROOT/nav.adoc

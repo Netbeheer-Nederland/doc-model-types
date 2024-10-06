@@ -1,0 +1,7 @@
+# Vim
+.netrwhist
+*.swp
+*~
+
+# VS Code
+/.vscode/

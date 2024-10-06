@@ -1,0 +1,7 @@
+= Types of Models
+
+== Conceptual models
+
+== Logical models
+
+We use http://linkml.io/[LinkML] for this. Check out the xref:v2.0.0@linkml-modeling-guide:ROOT:index.adoc[LinkML Modeling Guide] we've written.
