@@ -8,15 +8,19 @@ We use http://linkml.io/[LinkML] for this. Check out the xref:v1.0.0@linkml-mode
 
 ---
 
+.Squaring a number
 [source,python]
 ....
 def square(x):
-    return x**2 <1>
+    result = x**2 <1>
+    return result <2>
 ....
-<1> Calculates and returns the square of `x`.
+<1> Calculates the square of `x` and stores it in `result`.
+<2> Returns the value of `result`.
 
 '''
 
+.UML class diagram of the CGMES Diagram Layout profile
 [plantuml]
 ....
 @startuml
